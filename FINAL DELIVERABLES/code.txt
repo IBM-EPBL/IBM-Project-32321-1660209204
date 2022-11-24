@@ -1,0 +1,51 @@
+PYTHON CODE:
+import time import sys
+import ibmiotf.application import ibmiotf.device
+#Provide your IBM Watson Device Credentials organization = "ie8mpi"
+deviceType = "IoT_device" deviceId = "IoT_device_1" authMethod = "token" authToken = "12345678”
+
+def myCommandCallback(cmd): print("Command received: %s" %cmd.data)
+if cmd.data['command']=='motoron': print("MOTOR ON IS RECEIVED")
+
+elif cmd.data['command']=='motoroff': print("MOTOR OFF IS RECEIVED")
+
+if cmd.command == "setInterval":
+
+
+if 'interval' not in cmd.data:
+print("Error - command is missing required information: 'interval'")
+else:
+interval = cmd.data['interval']
+elif cmd.command == "print":	if 'message' not in cmd.data:
+ 
+
+
+
+
+try:
+ 
+
+else:
+ 
+print("Error - command is missing required information: 'message'")
+
+
+output=cmd.data['message'] print(output)
+ 
+deviceOptions = {"org": organization, "type": deviceType, "id": deviceId, "auth- method": authMethod, "auth-token": authToken}	deviceCli = ibmiotf.device.Client(deviceOptions)
+#..............................................
+
+
+except Exception as e:
+print("Caught exception connecting device: %s" % str(e)) sys.exit()
+
+# Connect and send a datapoint "hello" with value "world" into the cloud as an event of type
+"greeting" 10 times deviceCli.connect()
+
+while True:
+
+
+deviceCli.commandCallback = myCommandCallback
+
+
+# Disconnect the device and application from the cloud deviceCli.disconnect()
